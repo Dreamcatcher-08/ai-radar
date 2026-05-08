@@ -11,27 +11,33 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hira
 #layout{display:flex;min-height:100vh}
 
 /* ── Calendar Sidebar ── */
-#sidebar{position:fixed;top:0;left:0;width:270px;height:100vh;background:#fff;border-right:1px solid #e0e0e0;overflow-y:auto;z-index:20;padding:16px 12px 40px 12px;flex-shrink:0}
+#sidebar{position:fixed;top:0;left:0;width:250px;height:100vh;background:#fff;border-right:1px solid #e0e0e0;overflow-y:auto;z-index:20;padding:16px 10px 30px 10px;flex-shrink:0}
 #sidebar h3{font-size:13px;color:#999;margin-bottom:10px;padding:0 4px;font-weight:500;letter-spacing:.5px}
-#sidebar .jump-today{display:block;margin:8px 0 14px;padding:8px 12px;font-size:13px;background:#f0f6ff;color:#0366d6;border:1px solid #d0e0f5;border-radius:6px;text-align:center;cursor:pointer;text-decoration:none;font-weight:500}
+#sidebar .jump-today{display:block;margin:8px 0 12px;padding:8px 12px;font-size:13px;background:#f0f6ff;color:#0366d6;border:1px solid #d0e0f5;border-radius:6px;text-align:center;cursor:pointer;text-decoration:none;font-weight:500}
 #sidebar .jump-today:hover{background:#ddeeff}
 
-/* Calendar grid */
-.cal-month{margin-bottom:22px}
-.cal-month-title{font-size:12px;font-weight:600;color:#444;padding:6px 4px;border-bottom:1px solid #eee;margin-bottom:8px}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px 2px;text-align:center}
-.cal-hd{font-size:10px;color:#aaa;padding:4px 0;font-weight:500}
-.cal-day{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:5px 1px;border-radius:5px;font-size:12px;text-decoration:none;color:#777;min-height:36px;transition:background .12s;position:relative}
-.cal-day:hover{background:#eef5ff}
-.cal-day.cal-has{color:#333;font-weight:600;cursor:pointer}
-.cal-day.cal-has:hover{background:#d6e9ff}
-.cal-day.cal-today{background:#0366d6;color:#fff}
+/* Calendar widget */
+.cal-widget{margin-bottom:14px}
+.cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;user-select:none}
+.cal-nav-btn{width:28px;height:28px;display:flex;align-items:center;justify-content:center;border:none;background:#f0f0f0;border-radius:5px;cursor:pointer;font-size:14px;color:#555;transition:background .12s}
+.cal-nav-btn:hover{background:#ddeeff;color:#0366d6}
+.cal-nav-btn:disabled{opacity:.25;cursor:default}
+.cal-nav-title{font-size:13px;font-weight:600;color:#333}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px 1px;text-align:center}
+.cal-hd{font-size:10px;color:#aaa;padding:5px 0 6px;font-weight:500;border-bottom:1px solid #f0f0f0;margin-bottom:2px}
+.cal-day{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:5px 1px;border-radius:5px;font-size:12px;text-decoration:none;color:#bbb;min-height:37px;transition:all .12s;position:relative}
+.cal-day.in-month{color:#555}
+.cal-day.in-month.cal-has{color:#222;font-weight:600;cursor:pointer}
+.cal-day.in-month.cal-has:hover{background:#d6e9ff;color:#0366d6}
+.cal-day.cal-today{background:#0366d6;color:#fff!important;font-weight:700}
 .cal-day.cal-today .cal-c{background:rgba(255,255,255,.3);color:#fff}
-.cal-day.cal-outside{color:#ddd}
+.cal-day.cal-today.cal-has:hover{background:#0255b3;color:#fff!important}
 .cal-d{line-height:1.3}
-.cal-c{font-size:9px;background:#e8f0fe;color:#0366d6;padding:1px 5px;border-radius:7px;margin-top:1px;line-height:1.3;font-weight:600;min-width:18px;text-align:center}
-.cal-day.cal-has .cal-c{background:#d4e5ff}
-#main{margin-left:270px;flex:1;padding:24px 28px;max-width:calc(1000px + 270px)}
+.cal-c{font-size:9px;padding:1px 5px;border-radius:7px;margin-top:1px;line-height:1.3;font-weight:600;min-width:18px;text-align:center}
+.in-month.cal-has .cal-d{color:#222}
+.in-month.cal-has .cal-c{background:#d4e5ff;color:#0366d6}
+
+#main{margin-left:250px;flex:1;padding:24px 28px;max-width:calc(1000px + 250px)}
 
 /* ── Sidebar toggle for mobile ── */
 #sidebar-toggle{display:none;position:fixed;top:10px;left:10px;z-index:30;background:#fff;border:1px solid #ddd;border-radius:6px;padding:6px 10px;font-size:18px;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.08)}
@@ -78,7 +84,7 @@ h1{font-size:22px;color:#111;font-weight:600}
 
 /* ── Responsive ── */
 @media (max-width:860px){
-  #sidebar{transform:translateX(-100%);transition:transform .25s;width:280px}
+  #sidebar{transform:translateX(-100%);transition:transform .25s;width:260px}
   #sidebar.open{transform:translateX(0)}
   #main{margin-left:0;padding:16px 12px}
   #sidebar-toggle{display:block}
@@ -86,11 +92,11 @@ h1{font-size:22px;color:#111;font-weight:600}
   .src{min-width:60px;font-size:10px}
   .time{min-width:38px;font-size:10px}
 }
-@media (min-width:861px) and (max-width:1150px){
-  #sidebar{width:220px;padding:12px 8px 30px 8px}
-  .cal-day{min-height:30px;font-size:11px;padding:4px 1px}
+@media (min-width:861px) and (max-width:1100px){
+  #sidebar{width:210px;padding:14px 8px 30px 8px}
+  .cal-day{min-height:32px;font-size:11px;padding:3px 1px}
   .cal-c{font-size:8px;min-width:15px}
-  #main{margin-left:220px;padding:20px 16px}
+  #main{margin-left:210px;padding:20px 16px}
 }
 </style>
 </head>
@@ -101,20 +107,21 @@ h1{font-size:22px;color:#111;font-weight:600}
 <div id="sidebar">
   <h3>📅 127 天有更新</h3>
   <a class="jump-today" href="#day-2026-05-08">📍 跳到今天</a>
-<div class="cal-month"><div class="cal-month-title">2025年十一月</div><div class="cal-grid"><div class="cal-hd">日</div><div class="cal-hd">一</div><div class="cal-hd">二</div><div class="cal-hd">三</div><div class="cal-hd">四</div><div class="cal-hd">五</div><div class="cal-hd">六</div><div class="cal-day cal-outside"><span class="cal-d">26</span></div><div class="cal-day cal-outside"><span class="cal-d">27</span></div><div class="cal-day cal-outside"><span class="cal-d">28</span></div><div class="cal-day cal-outside"><span class="cal-d">29</span></div><div class="cal-day cal-outside"><span class="cal-d">30</span></div><div class="cal-day cal-outside"><span class="cal-d">31</span></div><div class="cal-day"><span class="cal-d">1</span></div><div class="cal-day"><span class="cal-d">2</span></div><div class="cal-day"><span class="cal-d">3</span></div><div class="cal-day"><span class="cal-d">4</span></div><div class="cal-day"><span class="cal-d">5</span></div><div class="cal-day"><span class="cal-d">6</span></div><div class="cal-day"><span class="cal-d">7</span></div><div class="cal-day"><span class="cal-d">8</span></div><div class="cal-day"><span class="cal-d">9</span></div><a class="cal-day cal-has" href="#day-2025-11-10" title="2025-11-10 · 1条"><span class="cal-d">10</span><span class="cal-c">1</span></a><div class="cal-day"><span class="cal-d">11</span></div><a class="cal-day cal-has" href="#day-2025-11-12" title="2025-11-12 · 5条"><span class="cal-d">12</span><span class="cal-c">5</span></a><a class="cal-day cal-has" href="#day-2025-11-13" title="2025-11-13 · 6条"><span class="cal-d">13</span><span class="cal-c">6</span></a><a class="cal-day cal-has" href="#day-2025-11-14" title="2025-11-14 · 1条"><span class="cal-d">14</span><span class="cal-c">1</span></a><div class="cal-day"><span class="cal-d">15</span></div><div class="cal-day"><span class="cal-d">16</span></div><a class="cal-day cal-has" href="#day-2025-11-17" title="2025-11-17 · 2条"><span class="cal-d">17</span><span class="cal-c">2</span></a><a class="cal-day cal-has" href="#day-2025-11-18" title="2025-11-18 · 2条"><span class="cal-d">18</span><span class="cal-c">2</span></a><a class="cal-day cal-has" href="#day-2025-11-19" title="2025-11-19 · 8条"><span class="cal-d">19</span><span class="cal-c">8</span></a><a class="cal-day cal-has" href="#day-2025-11-20" title="2025-11-20 · 4条"><span class="cal-d">20</span><span class="cal-c">4</span></a><a class="cal-day cal-has" href="#day-2025-11-21" title="2025-11-21 · 2条"><span class="cal-d">21</span><span class="cal-c">2</span></a><div class="cal-day"><span class="cal-d">22</span></div><div class="cal-day"><span class="cal-d">23</span></div><a class="cal-day cal-has" href="#day-2025-11-24" title="2025-11-24 · 5条"><span class="cal-d">24</span><span class="cal-c">5</span></a><a class="cal-day cal-has" href="#day-2025-11-25" title="2025-11-25 · 5条"><span class="cal-d">25</span><span class="cal-c">5</span></a><a class="cal-day cal-has" href="#day-2025-11-26" title="2025-11-26 · 1条"><span class="cal-d">26</span><span class="cal-c">1</span></a><div class="cal-day"><span class="cal-d">27</span></div><div class="cal-day"><span class="cal-d">28</span></div><div class="cal-day"><span class="cal-d">29</span></div><div class="cal-day"><span class="cal-d">30</span></div><div class="cal-day cal-outside cal-has"><span class="cal-d">1</span></div><div class="cal-day cal-outside"><span class="cal-d">2</span></div><div class="cal-day cal-outside cal-has"><span class="cal-d">3</span></div><div class="cal-day cal-outside cal-has"><span class="cal-d">4</span></div><div class="cal-day cal-outside cal-has"><span class="cal-d">5</span></div><div class="cal-day cal-outside"><span class="cal-d">6</span></div></div></div>
-<div class="cal-month"><div class="cal-month-title">2025年十二月</div><div class="cal-grid"><div class="cal-hd">日</div><div class="cal-hd">一</div><div class="cal-hd">二</div><div class="cal-hd">三</div><div class="cal-hd">四</div><div class="cal-hd">五</div><div class="cal-hd">六</div><div class="cal-day cal-outside"><span class="cal-d">30</span></div><a class="cal-day cal-has" href="#day-2025-12-01" title="2025-12-01 · 6条"><span class="cal-d">1</span><span class="cal-c">6</span></a><div class="cal-day"><span class="cal-d">2</span></div><a class="cal-day cal-has" href="#day-2025-12-03" title="2025-12-03 · 3条"><span class="cal-d">3</span><span class="cal-c">3</span></a><a class="cal-day cal-has" href="#day-2025-12-04" title="2025-12-04 · 3条"><span class="cal-d">4</span><span class="cal-c">3</span></a><a class="cal-day cal-has" href="#day-2025-12-05" title="2025-12-05 · 1条"><span class="cal-d">5</span><span class="cal-c">1</span></a><div class="cal-day"><span class="cal-d">6</span></div><div class="cal-day"><span class="cal-d">7</span></div><a class="cal-day cal-has" href="#day-2025-12-08" title="2025-12-08 · 4条"><span class="cal-d">8</span><span class="cal-c">4</span></a><a class="cal-day cal-has" href="#day-2025-12-09" title="2025-12-09 · 6条"><span class="cal-d">9</span><span class="cal-c">6</span></a><a class="cal-day cal-has" href="#day-2025-12-10" title="2025-12-10 · 1条"><span class="cal-d">10</span><span class="cal-c">1</span></a><a class="cal-day cal-has" href="#day-2025-12-11" title="2025-12-11 · 8条"><span class="cal-d">11</span><span class="cal-c">8</span></a><a class="cal-day cal-has" href="#day-2025-12-12" title="2025-12-12 · 3条"><span class="cal-d">12</span><span class="cal-c">3</span></a><div class="cal-day"><span class="cal-d">13</span></div><div class="cal-day"><span class="cal-d">14</span></div><a class="cal-day cal-has" href="#day-2025-12-15" title="2025-12-15 · 1条"><span class="cal-d">15</span><span class="cal-c">1</span></a><a class="cal-day cal-has" href="#day-2025-12-16" title="2025-12-16 · 4条"><span class="cal-d">16</span><span class="cal-c">4</span></a><a class="cal-day cal-has" href="#day-2025-12-17" title="2025-12-17 · 4条"><span class="cal-d">17</span><span class="cal-c">4</span></a><a class="cal-day cal-has" href="#day-2025-12-18" title="2025-12-18 · 7条"><span class="cal-d">18</span><span class="cal-c">7</span></a><div class="cal-day"><span class="cal-d">19</span></div><a class="cal-day cal-has" href="#day-2025-12-20" title="2025-12-20 · 1条"><span class="cal-d">20</span><span class="cal-c">1</span></a><div class="cal-day"><span class="cal-d">21</span></div><a class="cal-day cal-has" href="#day-2025-12-22" title="2025-12-22 · 3条"><span class="cal-d">22</span><span class="cal-c">3</span></a><a class="cal-day cal-has" href="#day-2025-12-23" title="2025-12-23 · 1条"><span class="cal-d">23</span><span class="cal-c">1</span></a><div class="cal-day"><span class="cal-d">24</span></div><div class="cal-day"><span class="cal-d">25</span></div><div class="cal-day"><span class="cal-d">26</span></div><div class="cal-day"><span class="cal-d">27</span></div><div class="cal-day"><span class="cal-d">28</span></div><div class="cal-day"><span class="cal-d">29</span></div><div class="cal-day"><span class="cal-d">30</span></div><div class="cal-day"><span class="cal-d">31</span></div><div class="cal-day cal-outside"><span class="cal-d">1</span></div><div class="cal-day cal-outside cal-has"><span class="cal-d">2</span></div><div class="cal-day cal-outside"><span class="cal-d">3</span></div></div></div>
-<div class="cal-month"><div class="cal-month-title">2026年一月</div><div class="cal-grid"><div class="cal-hd">日</div><div class="cal-hd">一</div><div class="cal-hd">二</div><div class="cal-hd">三</div><div class="cal-hd">四</div><div class="cal-hd">五</div><div class="cal-hd">六</div><div class="cal-day cal-outside"><span class="cal-d">28</span></div><div class="cal-day cal-outside"><span class="cal-d">29</span></div><div class="cal-day cal-outside"><span class="cal-d">30</span></div><div class="cal-day cal-outside"><span class="cal-d">31</span></div><div class="cal-day"><span class="cal-d">1</span></div><a class="cal-day cal-has" href="#day-2026-01-02" title="2026-01-02 · 1条"><span class="cal-d">2</span><span class="cal-c">1</span></a><div class="cal-day"><span class="cal-d">3</span></div><div class="cal-day"><span class="cal-d">4</span></div><a class="cal-day cal-has" href="#day-2026-01-05" title="2026-01-05 · 4条"><span class="cal-d">5</span><span class="cal-c">4</span></a><div class="cal-day"><span class="cal-d">6</span></div><a class="cal-day cal-has" href="#day-2026-01-07" title="2026-01-07 · 3条"><span class="cal-d">7</span><span class="cal-c">3</span></a><a class="cal-day cal-has" href="#day-2026-01-08" title="2026-01-08 · 2条"><span class="cal-d">8</span><span class="cal-c">2</span></a><a class="cal-day cal-has" href="#day-2026-01-09" title="2026-01-09 · 2条"><span class="cal-d">9</span><span class="cal-c">2</span></a><div class="cal-day"><span class="cal-d">10</span></div><div class="cal-day"><span class="cal-d">11</span></div><a class="cal-day cal-has" href="#day-2026-01-12" title="2026-01-12 · 1条"><span class="cal-d">12</span><span class="cal-c">1</span></a><a class="cal-day cal-has" href="#day-2026-01-13" title="2026-01-13 · 1条"><span class="cal-d">13</span><span class="cal-c">1</span></a><a class="cal-day cal-has" href="#day-2026-01-14" title="2026-01-14 · 1条"><span class="cal-d">14</span><span class="cal-c">1</span></a><a class="cal-day cal-has" href="#day-2026-01-15" title="2026-01-15 · 3条"><span class="cal-d">15</span><span class="cal-c">3</span></a><a class="cal-day cal-has" href="#day-2026-01-16" title="2026-01-16 · 2条"><span class="cal-d">16</span><span class="cal-c">2</span></a><div class="cal-day"><span class="cal-d">17</span></div><a class="cal-day cal-has" href="#day-2026-01-18" title="2026-01-18 · 1条"><span class="cal-d">18</span><span class="cal-c">1</span></a><a class="cal-day cal-has" href="#day-2026-01-19" title="2026-01-19 · 1条"><span class="cal-d">19</span><span class="cal-c">1</span></a><a class="cal-day cal-has" href="#day-2026-01-20" title="2026-01-20 · 8条"><span class="cal-d">20</span><span class="cal-c">8</span></a><a class="cal-day cal-has" href="#day-2026-01-21" title="2026-01-21 · 4条"><span class="cal-d">21</span><span class="cal-c">4</span></a><a class="cal-day cal-has" href="#day-2026-01-22" title="2026-01-22 · 3条"><span class="cal-d">22</span><span class="cal-c">3</span></a><a class="cal-day cal-has" href="#day-2026-01-23" title="2026-01-23 · 1条"><span class="cal-d">23</span><span class="cal-c">1</span></a><div class="cal-day"><span class="cal-d">24</span></div><div class="cal-day"><span class="cal-d">25</span></div><a class="cal-day cal-has" href="#day-2026-01-26" title="2026-01-26 · 2条"><span class="cal-d">26</span><span class="cal-c">2</span></a><a class="cal-day cal-has" href="#day-2026-01-27" title="2026-01-27 · 7条"><span class="cal-d">27</span><span class="cal-c">7</span></a><a class="cal-day cal-has" href="#day-2026-01-28" title="2026-01-28 · 4条"><span class="cal-d">28</span><span class="cal-c">4</span></a><a class="cal-day cal-has" href="#day-2026-01-29" title="2026-01-29 · 5条"><span class="cal-d">29</span><span class="cal-c">5</span></a><a class="cal-day cal-has" href="#day-2026-01-30" title="2026-01-30 · 1条"><span class="cal-d">30</span><span class="cal-c">1</span></a><div class="cal-day"><span class="cal-d">31</span></div></div></div>
-<div class="cal-month"><div class="cal-month-title">2026年二月</div><div class="cal-grid"><div class="cal-hd">日</div><div class="cal-hd">一</div><div class="cal-hd">二</div><div class="cal-hd">三</div><div class="cal-hd">四</div><div class="cal-hd">五</div><div class="cal-hd">六</div><div class="cal-day"><span class="cal-d">1</span></div><a class="cal-day cal-has" href="#day-2026-02-02" title="2026-02-02 · 4条"><span class="cal-d">2</span><span class="cal-c">4</span></a><a class="cal-day cal-has" href="#day-2026-02-03" title="2026-02-03 · 4条"><span class="cal-d">3</span><span class="cal-c">4</span></a><a class="cal-day cal-has" href="#day-2026-02-04" title="2026-02-04 · 3条"><span class="cal-d">4</span><span class="cal-c">3</span></a><a class="cal-day cal-has" href="#day-2026-02-05" title="2026-02-05 · 6条"><span class="cal-d">5</span><span class="cal-c">6</span></a><a class="cal-day cal-has" href="#day-2026-02-06" title="2026-02-06 · 1条"><span class="cal-d">6</span><span class="cal-c">1</span></a><div class="cal-day"><span class="cal-d">7</span></div><div class="cal-day"><span class="cal-d">8</span></div><a class="cal-day cal-has" href="#day-2026-02-09" title="2026-02-09 · 5条"><span class="cal-d">9</span><span class="cal-c">5</span></a><div class="cal-day"><span class="cal-d">10</span></div><a class="cal-day cal-has" href="#day-2026-02-11" title="2026-02-11 · 1条"><span class="cal-d">11</span><span class="cal-c">1</span></a><a class="cal-day cal-has" href="#day-2026-02-12" title="2026-02-12 · 4条"><span class="cal-d">12</span><span class="cal-c">4</span></a><a class="cal-day cal-has" href="#day-2026-02-13" title="2026-02-13 · 5条"><span class="cal-d">13</span><span class="cal-c">5</span></a><div class="cal-day"><span class="cal-d">14</span></div><div class="cal-day"><span class="cal-d">15</span></div><a class="cal-day cal-has" href="#day-2026-02-16" title="2026-02-16 · 1条"><span class="cal-d">16</span><span class="cal-c">1</span></a><a class="cal-day cal-has" href="#day-2026-02-17" title="2026-02-17 · 1条"><span class="cal-d">17</span><span class="cal-c">1</span></a><a class="cal-day cal-has" href="#day-2026-02-18" title="2026-02-18 · 5条"><span class="cal-d">18</span><span class="cal-c">5</span></a><a class="cal-day cal-has" href="#day-2026-02-19" title="2026-02-19 · 1条"><span class="cal-d">19</span><span class="cal-c">1</span></a><a class="cal-day cal-has" href="#day-2026-02-20" title="2026-02-20 · 3条"><span class="cal-d">20</span><span class="cal-c">3</span></a><div class="cal-day"><span class="cal-d">21</span></div><div class="cal-day"><span class="cal-d">22</span></div><a class="cal-day cal-has" href="#day-2026-02-23" title="2026-02-23 · 3条"><span class="cal-d">23</span><span class="cal-c">3</span></a><a class="cal-day cal-has" href="#day-2026-02-24" title="2026-02-24 · 3条"><span class="cal-d">24</span><span class="cal-c">3</span></a><a class="cal-day cal-has" href="#day-2026-02-25" title="2026-02-25 · 1条"><span class="cal-d">25</span><span class="cal-c">1</span></a><a class="cal-day cal-has" href="#day-2026-02-26" title="2026-02-26 · 3条"><span class="cal-d">26</span><span class="cal-c">3</span></a><a class="cal-day cal-has" href="#day-2026-02-27" title="2026-02-27 · 5条"><span class="cal-d">27</span><span class="cal-c">5</span></a><a class="cal-day cal-has" href="#day-2026-02-28" title="2026-02-28 · 1条"><span class="cal-d">28</span><span class="cal-c">1</span></a></div></div>
-<div class="cal-month"><div class="cal-month-title">2026年三月</div><div class="cal-grid"><div class="cal-hd">日</div><div class="cal-hd">一</div><div class="cal-hd">二</div><div class="cal-hd">三</div><div class="cal-hd">四</div><div class="cal-hd">五</div><div class="cal-hd">六</div><div class="cal-day"><span class="cal-d">1</span></div><a class="cal-day cal-has" href="#day-2026-03-02" title="2026-03-02 · 1条"><span class="cal-d">2</span><span class="cal-c">1</span></a><a class="cal-day cal-has" href="#day-2026-03-03" title="2026-03-03 · 4条"><span class="cal-d">3</span><span class="cal-c">4</span></a><a class="cal-day cal-has" href="#day-2026-03-04" title="2026-03-04 · 3条"><span class="cal-d">4</span><span class="cal-c">3</span></a><a class="cal-day cal-has" href="#day-2026-03-05" title="2026-03-05 · 11条"><span class="cal-d">5</span><span class="cal-c">11</span></a><a class="cal-day cal-has" href="#day-2026-03-06" title="2026-03-06 · 4条"><span class="cal-d">6</span><span class="cal-c">4</span></a><div class="cal-day"><span class="cal-d">7</span></div><div class="cal-day"><span class="cal-d">8</span></div><a class="cal-day cal-has" href="#day-2026-03-09" title="2026-03-09 · 4条"><span class="cal-d">9</span><span class="cal-c">4</span></a><a class="cal-day cal-has" href="#day-2026-03-10" title="2026-03-10 · 4条"><span class="cal-d">10</span><span class="cal-c">4</span></a><a class="cal-day cal-has" href="#day-2026-03-11" title="2026-03-11 · 4条"><span class="cal-d">11</span><span class="cal-c">4</span></a><a class="cal-day cal-has" href="#day-2026-03-12" title="2026-03-12 · 1条"><span class="cal-d">12</span><span class="cal-c">1</span></a><div class="cal-day"><span class="cal-d">13</span></div><div class="cal-day"><span class="cal-d">14</span></div><div class="cal-day"><span class="cal-d">15</span></div><a class="cal-day cal-has" href="#day-2026-03-16" title="2026-03-16 · 3条"><span class="cal-d">16</span><span class="cal-c">3</span></a><a class="cal-day cal-has" href="#day-2026-03-17" title="2026-03-17 · 5条"><span class="cal-d">17</span><span class="cal-c">5</span></a><a class="cal-day cal-has" href="#day-2026-03-18" title="2026-03-18 · 1条"><span class="cal-d">18</span><span class="cal-c">1</span></a><a class="cal-day cal-has" href="#day-2026-03-19" title="2026-03-19 · 2条"><span class="cal-d">19</span><span class="cal-c">2</span></a><a class="cal-day cal-has" href="#day-2026-03-20" title="2026-03-20 · 1条"><span class="cal-d">20</span><span class="cal-c">1</span></a><div class="cal-day"><span class="cal-d">21</span></div><a class="cal-day cal-has" href="#day-2026-03-22" title="2026-03-22 · 1条"><span class="cal-d">22</span><span class="cal-c">1</span></a><a class="cal-day cal-has" href="#day-2026-03-23" title="2026-03-23 · 2条"><span class="cal-d">23</span><span class="cal-c">2</span></a><a class="cal-day cal-has" href="#day-2026-03-24" title="2026-03-24 · 5条"><span class="cal-d">24</span><span class="cal-c">5</span></a><a class="cal-day cal-has" href="#day-2026-03-25" title="2026-03-25 · 4条"><span class="cal-d">25</span><span class="cal-c">4</span></a><div class="cal-day"><span class="cal-d">26</span></div><a class="cal-day cal-has" href="#day-2026-03-27" title="2026-03-27 · 3条"><span class="cal-d">27</span><span class="cal-c">3</span></a><div class="cal-day"><span class="cal-d">28</span></div><a class="cal-day cal-has" href="#day-2026-03-29" title="2026-03-29 · 1条"><span class="cal-d">29</span><span class="cal-c">1</span></a><a class="cal-day cal-has" href="#day-2026-03-30" title="2026-03-30 · 3条"><span class="cal-d">30</span><span class="cal-c">3</span></a><a class="cal-day cal-has" href="#day-2026-03-31" title="2026-03-31 · 7条"><span class="cal-d">31</span><span class="cal-c">7</span></a><div class="cal-day cal-outside cal-has"><span class="cal-d">1</span></div><div class="cal-day cal-outside cal-has"><span class="cal-d">2</span></div><div class="cal-day cal-outside cal-has"><span class="cal-d">3</span></div><div class="cal-day cal-outside"><span class="cal-d">4</span></div></div></div>
-<div class="cal-month"><div class="cal-month-title">2026年四月</div><div class="cal-grid"><div class="cal-hd">日</div><div class="cal-hd">一</div><div class="cal-hd">二</div><div class="cal-hd">三</div><div class="cal-hd">四</div><div class="cal-hd">五</div><div class="cal-hd">六</div><div class="cal-day cal-outside cal-has"><span class="cal-d">29</span></div><div class="cal-day cal-outside cal-has"><span class="cal-d">30</span></div><div class="cal-day cal-outside cal-has"><span class="cal-d">31</span></div><a class="cal-day cal-has" href="#day-2026-04-01" title="2026-04-01 · 6条"><span class="cal-d">1</span><span class="cal-c">6</span></a><a class="cal-day cal-has" href="#day-2026-04-02" title="2026-04-02 · 8条"><span class="cal-d">2</span><span class="cal-c">8</span></a><a class="cal-day cal-has" href="#day-2026-04-03" title="2026-04-03 · 4条"><span class="cal-d">3</span><span class="cal-c">4</span></a><div class="cal-day"><span class="cal-d">4</span></div><div class="cal-day"><span class="cal-d">5</span></div><a class="cal-day cal-has" href="#day-2026-04-06" title="2026-04-06 · 5条"><span class="cal-d">6</span><span class="cal-c">5</span></a><a class="cal-day cal-has" href="#day-2026-04-07" title="2026-04-07 · 3条"><span class="cal-d">7</span><span class="cal-c">3</span></a><a class="cal-day cal-has" href="#day-2026-04-08" title="2026-04-08 · 4条"><span class="cal-d">8</span><span class="cal-c">4</span></a><a class="cal-day cal-has" href="#day-2026-04-09" title="2026-04-09 · 6条"><span class="cal-d">9</span><span class="cal-c">6</span></a><a class="cal-day cal-has" href="#day-2026-04-10" title="2026-04-10 · 29条"><span class="cal-d">10</span><span class="cal-c">29</span></a><a class="cal-day cal-has" href="#day-2026-04-11" title="2026-04-11 · 1条"><span class="cal-d">11</span><span class="cal-c">1</span></a><a class="cal-day cal-has" href="#day-2026-04-12" title="2026-04-12 · 2条"><span class="cal-d">12</span><span class="cal-c">2</span></a><a class="cal-day cal-has" href="#day-2026-04-13" title="2026-04-13 · 7条"><span class="cal-d">13</span><span class="cal-c">7</span></a><a class="cal-day cal-has" href="#day-2026-04-14" title="2026-04-14 · 6条"><span class="cal-d">14</span><span class="cal-c">6</span></a><a class="cal-day cal-has" href="#day-2026-04-15" title="2026-04-15 · 9条"><span class="cal-d">15</span><span class="cal-c">9</span></a><a class="cal-day cal-has" href="#day-2026-04-16" title="2026-04-16 · 13条"><span class="cal-d">16</span><span class="cal-c">13</span></a><a class="cal-day cal-has" href="#day-2026-04-17" title="2026-04-17 · 6条"><span class="cal-d">17</span><span class="cal-c">6</span></a><a class="cal-day cal-has" href="#day-2026-04-18" title="2026-04-18 · 1条"><span class="cal-d">18</span><span class="cal-c">1</span></a><a class="cal-day cal-has" href="#day-2026-04-19" title="2026-04-19 · 1条"><span class="cal-d">19</span><span class="cal-c">1</span></a><a class="cal-day cal-has" href="#day-2026-04-20" title="2026-04-20 · 15条"><span class="cal-d">20</span><span class="cal-c">15</span></a><a class="cal-day cal-has" href="#day-2026-04-21" title="2026-04-21 · 15条"><span class="cal-d">21</span><span class="cal-c">15</span></a><a class="cal-day cal-has" href="#day-2026-04-22" title="2026-04-22 · 15条"><span class="cal-d">22</span><span class="cal-c">15</span></a><a class="cal-day cal-has" href="#day-2026-04-23" title="2026-04-23 · 26条"><span class="cal-d">23</span><span class="cal-c">26</span></a><a class="cal-day cal-has" href="#day-2026-04-24" title="2026-04-24 · 17条"><span class="cal-d">24</span><span class="cal-c">17</span></a><a class="cal-day cal-has" href="#day-2026-04-25" title="2026-04-25 · 2条"><span class="cal-d">25</span><span class="cal-c">2</span></a><a class="cal-day cal-has" href="#day-2026-04-26" title="2026-04-26 · 3条"><span class="cal-d">26</span><span class="cal-c">3</span></a><a class="cal-day cal-has" href="#day-2026-04-27" title="2026-04-27 · 25条"><span class="cal-d">27</span><span class="cal-c">25</span></a><a class="cal-day cal-has" href="#day-2026-04-28" title="2026-04-28 · 23条"><span class="cal-d">28</span><span class="cal-c">23</span></a><a class="cal-day cal-has" href="#day-2026-04-29" title="2026-04-29 · 21条"><span class="cal-d">29</span><span class="cal-c">21</span></a><a class="cal-day cal-has" href="#day-2026-04-30" title="2026-04-30 · 32条"><span class="cal-d">30</span><span class="cal-c">32</span></a><div class="cal-day cal-outside cal-has"><span class="cal-d">1</span></div><div class="cal-day cal-outside cal-has"><span class="cal-d">2</span></div></div></div>
-<div class="cal-month"><div class="cal-month-title">2026年五月</div><div class="cal-grid"><div class="cal-hd">日</div><div class="cal-hd">一</div><div class="cal-hd">二</div><div class="cal-hd">三</div><div class="cal-hd">四</div><div class="cal-hd">五</div><div class="cal-hd">六</div><div class="cal-day cal-outside cal-has"><span class="cal-d">26</span></div><div class="cal-day cal-outside cal-has"><span class="cal-d">27</span></div><div class="cal-day cal-outside cal-has"><span class="cal-d">28</span></div><div class="cal-day cal-outside cal-has"><span class="cal-d">29</span></div><div class="cal-day cal-outside cal-has"><span class="cal-d">30</span></div><a class="cal-day cal-has" href="#day-2026-05-01" title="2026-05-01 · 27条"><span class="cal-d">1</span><span class="cal-c">27</span></a><a class="cal-day cal-has" href="#day-2026-05-02" title="2026-05-02 · 3条"><span class="cal-d">2</span><span class="cal-c">3</span></a><a class="cal-day cal-has" href="#day-2026-05-03" title="2026-05-03 · 3条"><span class="cal-d">3</span><span class="cal-c">3</span></a><a class="cal-day cal-has" href="#day-2026-05-04" title="2026-05-04 · 44条"><span class="cal-d">4</span><span class="cal-c">44</span></a><a class="cal-day cal-has" href="#day-2026-05-05" title="2026-05-05 · 63条"><span class="cal-d">5</span><span class="cal-c">63</span></a><a class="cal-day cal-has" href="#day-2026-05-06" title="2026-05-06 · 147条"><span class="cal-d">6</span><span class="cal-c">147</span></a><a class="cal-day cal-has" href="#day-2026-05-07" title="2026-05-07 · 544条"><span class="cal-d">7</span><span class="cal-c">544</span></a><a class="cal-day cal-today cal-has" href="#day-2026-05-08" title="2026-05-08 · 49条"><span class="cal-d">8</span><span class="cal-c">49</span></a><div class="cal-day"><span class="cal-d">9</span></div><div class="cal-day"><span class="cal-d">10</span></div><div class="cal-day"><span class="cal-d">11</span></div><div class="cal-day"><span class="cal-d">12</span></div><div class="cal-day"><span class="cal-d">13</span></div><div class="cal-day"><span class="cal-d">14</span></div><div class="cal-day"><span class="cal-d">15</span></div><div class="cal-day"><span class="cal-d">16</span></div><div class="cal-day"><span class="cal-d">17</span></div><div class="cal-day"><span class="cal-d">18</span></div><div class="cal-day"><span class="cal-d">19</span></div><div class="cal-day"><span class="cal-d">20</span></div><div class="cal-day"><span class="cal-d">21</span></div><div class="cal-day"><span class="cal-d">22</span></div><div class="cal-day"><span class="cal-d">23</span></div><div class="cal-day"><span class="cal-d">24</span></div><div class="cal-day"><span class="cal-d">25</span></div><div class="cal-day"><span class="cal-d">26</span></div><div class="cal-day"><span class="cal-d">27</span></div><div class="cal-day"><span class="cal-d">28</span></div><div class="cal-day"><span class="cal-d">29</span></div><div class="cal-day"><span class="cal-d">30</span></div><div class="cal-day"><span class="cal-d">31</span></div><div class="cal-day cal-outside"><span class="cal-d">1</span></div><div class="cal-day cal-outside"><span class="cal-d">2</span></div><div class="cal-day cal-outside"><span class="cal-d">3</span></div><div class="cal-day cal-outside"><span class="cal-d">4</span></div><div class="cal-day cal-outside"><span class="cal-d">5</span></div><div class="cal-day cal-outside"><span class="cal-d">6</span></div></div></div>
+  <div class="cal-widget" id="calWidget">
+    <div class="cal-nav">
+      <button class="cal-nav-btn" id="calPrev" onclick="navMonth(-1)" title="上月">◀</button>
+      <span class="cal-nav-title" id="calTitle"></span>
+      <button class="cal-nav-btn" id="calNext" onclick="navMonth(1)" title="下月">▶</button>
+    </div>
+    <div class="cal-grid" id="calGrid"></div>
+  </div>
 </div>
 
 <!-- ═══════════ MAIN CONTENT ═══════════ -->
 <div id="main">
 <header>
 <h1>🔍 AI Radar</h1>
-<div class="meta">1474 条 · 127 天有更新 · 最近 180 天 · 北京时间 · 2026-05-08 10:11 CST</div>
+<div class="meta">1474 条 · 127 天有更新 · 最近 180 天 · 北京时间 · 2026-05-08 10:18 CST</div>
 <div class="legend" id="legend">
   <span class="leg leg-t1" data-cat="t1">🟢 官方一手</span>
   <span class="leg leg-t2" data-cat="t2">🔵 深度/KOL</span>
@@ -1857,7 +1864,93 @@ h1{font-size:22px;color:#111;font-weight:600}
 </div>
 <div class="filter-msg" id="filterMsg"><span id="filterLabel"></span><a onclick="clearFilter()">✕ 显示全部</a></div>
 <script>
+// ── Calendar Engine ──
+var DATE_COUNTS = {"2026-05-08": 49, "2026-05-07": 544, "2026-05-06": 147, "2026-05-05": 63, "2026-05-04": 44, "2026-05-03": 3, "2026-05-02": 3, "2026-05-01": 27, "2026-04-30": 32, "2026-04-29": 21, "2026-04-28": 23, "2026-04-27": 25, "2026-04-26": 3, "2026-04-25": 2, "2026-04-24": 17, "2026-04-23": 26, "2026-04-22": 15, "2026-04-21": 15, "2026-04-20": 15, "2026-04-19": 1, "2026-04-18": 1, "2026-04-17": 6, "2026-04-16": 13, "2026-04-15": 9, "2026-04-14": 6, "2026-04-13": 7, "2026-04-12": 2, "2026-04-11": 1, "2026-04-10": 29, "2026-04-09": 6, "2026-04-08": 4, "2026-04-07": 3, "2026-04-06": 5, "2026-04-03": 4, "2026-04-02": 8, "2026-04-01": 6, "2026-03-31": 7, "2026-03-30": 3, "2026-03-29": 1, "2026-03-27": 3, "2026-03-25": 4, "2026-03-24": 5, "2026-03-23": 2, "2026-03-22": 1, "2026-03-20": 1, "2026-03-19": 2, "2026-03-18": 1, "2026-03-17": 5, "2026-03-16": 3, "2026-03-12": 1, "2026-03-11": 4, "2026-03-10": 4, "2026-03-09": 4, "2026-03-06": 4, "2026-03-05": 11, "2026-03-04": 3, "2026-03-03": 4, "2026-03-02": 1, "2026-02-28": 1, "2026-02-27": 5, "2026-02-26": 3, "2026-02-25": 1, "2026-02-24": 3, "2026-02-23": 3, "2026-02-20": 3, "2026-02-19": 1, "2026-02-18": 5, "2026-02-17": 1, "2026-02-16": 1, "2026-02-13": 5, "2026-02-12": 4, "2026-02-11": 1, "2026-02-09": 5, "2026-02-06": 1, "2026-02-05": 6, "2026-02-04": 3, "2026-02-03": 4, "2026-02-02": 4, "2026-01-30": 1, "2026-01-29": 5, "2026-01-28": 4, "2026-01-27": 7, "2026-01-26": 2, "2026-01-23": 1, "2026-01-22": 3, "2026-01-21": 4, "2026-01-20": 8, "2026-01-19": 1, "2026-01-18": 1, "2026-01-16": 2, "2026-01-15": 3, "2026-01-14": 1, "2026-01-13": 1, "2026-01-12": 1, "2026-01-09": 2, "2026-01-08": 2, "2026-01-07": 3, "2026-01-05": 4, "2026-01-02": 1, "2025-12-23": 1, "2025-12-22": 3, "2025-12-20": 1, "2025-12-18": 7, "2025-12-17": 4, "2025-12-16": 4, "2025-12-15": 1, "2025-12-12": 3, "2025-12-11": 8, "2025-12-10": 1, "2025-12-09": 6, "2025-12-08": 4, "2025-12-05": 1, "2025-12-04": 3, "2025-12-03": 3, "2025-12-01": 6, "2025-11-26": 1, "2025-11-25": 5, "2025-11-24": 5, "2025-11-21": 2, "2025-11-20": 4, "2025-11-19": 8, "2025-11-18": 2, "2025-11-17": 2, "2025-11-14": 1, "2025-11-13": 6, "2025-11-12": 5, "2025-11-10": 1};
+var CAL_RANGE = {"firstYear": 2025, "firstMonth": 11, "lastYear": 2026, "lastMonth": 5};
+var MONTH_NAMES = ["\u4e00\u6708", "\u4e8c\u6708", "\u4e09\u6708", "\u56db\u6708", "\u4e94\u6708", "\u516d\u6708", "\u4e03\u6708", "\u516b\u6708", "\u4e5d\u6708", "\u5341\u6708", "\u5341\u4e00\u6708", "\u5341\u4e8c\u6708"];
+var TODAY = {"year": 2026, "month": 5, "day": 8};
+var curYear = TODAY.year;
+var curMonth = TODAY.month;
+
+function getCount(y,m,d){
+  var s=y+'-'+(m<10?'0':'')+m+'-'+(d<10?'0':'')+d;
+  return DATE_COUNTS[s]||0;
+}
+
+function daysInMonth(y,m){return new Date(y,m,0).getDate();}
+function firstDow(y,m){return new Date(y,m-1,1).getDay();} // 0=Sun
+
+function renderCal(){
+  document.getElementById('calTitle').textContent = curYear+'年 '+MONTH_NAMES[curMonth-1];
+  var prev=document.getElementById('calPrev');
+  var next=document.getElementById('calNext');
+  prev.disabled = (curYear===CAL_RANGE.firstYear && curMonth<=CAL_RANGE.firstMonth);
+  next.disabled = (curYear===TODAY.year && curMonth>=TODAY.month);
+
+  var grid=document.getElementById('calGrid');
+  grid.innerHTML='';
+  ['日','一','二','三','四','五','六'].forEach(function(w){
+    var hd=document.createElement('div');hd.className='cal-hd';hd.textContent=w;
+    grid.appendChild(hd);
+  });
+
+  var dim=daysInMonth(curYear,curMonth);
+  var fdow=firstDow(curYear,curMonth);
+  var prevDim=daysInMonth(curYear,curMonth===1?12:curMonth-1);
+  var prevM=curMonth===1?12:curMonth-1;
+  var prevY=curMonth===1?curYear-1:curYear;
+
+  // Previous month tail
+  for(var i=fdow-1;i>=0;i--){
+    var d=prevDim-i;
+    var el=document.createElement('div');el.className='cal-day';
+    el.innerHTML='<span class="cal-d">'+d+'</span>';
+    grid.appendChild(el);
+  }
+
+  // Current month
+  for(var d=1;d<=dim;d++){
+    var c=getCount(curYear,curMonth,d);
+    var isToday=(curYear===TODAY.year&&curMonth===TODAY.month&&d===TODAY.day);
+    var tag=c>0?'a':'div';
+    var el=document.createElement(tag);
+    var cls=['cal-day','in-month'];
+    if(c>0)cls.push('cal-has');
+    if(isToday)cls.push('cal-today');
+    el.className=cls.join(' ');
+    if(c>0){
+      el.href='#day-'+curYear+'-'+(curMonth<10?'0':'')+curMonth+'-'+(d<10?'0':'')+d;
+      el.title=curYear+'-'+(curMonth<10?'0':'')+curMonth+'-'+(d<10?'0':'')+d+' · '+c+'条';
+    }
+    var inner='<span class="cal-d">'+d+'</span>';
+    if(c>0)inner+='<span class="cal-c">'+c+'</span>';
+    el.innerHTML=inner;
+    if(c>0){el.addEventListener('click',function(){if(window.innerWidth<=860)document.getElementById('sidebar').classList.remove('open');});}
+    grid.appendChild(el);
+  }
+
+  // Next month head (fill remaining cells to complete row)
+  var total=fdow+dim;
+  var rem=total%7;
+  if(rem>0){
+    for(var d=1;d<=7-rem;d++){
+      var el2=document.createElement('div');el2.className='cal-day';
+      el2.innerHTML='<span class="cal-d">'+d+'</span>';
+      grid.appendChild(el2);
+    }
+  }
+}
+
+function navMonth(dir){
+  curMonth+=dir;
+  if(curMonth>12){curMonth=1;curYear++;}
+  if(curMonth<1){curMonth=12;curYear--;}
+  renderCal();
+}
+
+// ── Filter + Star logic ──
 (function(){
+renderCal();
 var active=null;
 var legends=document.querySelectorAll('.leg');
 var items=document.querySelectorAll('.item');
@@ -1902,15 +1995,6 @@ function updateStarCount(){var n=loadStars().length;document.getElementById('sta
 window.toggleStar=function(el){var url=el.parentElement.getAttribute('data-url');var stars=loadStars();var idx=stars.indexOf(url);if(idx>=0){stars.splice(idx,1);el.classList.remove('on');el.classList.add('off');}else{stars.push(url);el.classList.remove('off');el.classList.add('on');}saveStars(stars);updateStarCount();};
 window.exportStars=function(){var stars=loadStars();var lines=[];document.querySelectorAll('.item').forEach(function(i){if(stars.indexOf(i.getAttribute('data-url'))>=0){lines.push(i.querySelector('.title a').textContent+String.fromCharCode(10)+'  '+i.getAttribute('data-url'));}});if(lines.length===0){alert('暂无收藏');return;}navigator.clipboard.writeText(lines.join(String.fromCharCode(10,10))).then(function(){alert('已复制 '+lines.length+' 条收藏到剪贴板');});};
 (function(){var stars=loadStars();document.querySelectorAll('.item').forEach(function(i){var star=i.querySelector('.star');if(star&&stars.indexOf(i.getAttribute('data-url'))>=0){star.classList.remove('off');star.classList.add('on');}});updateStarCount();var starLeg=document.querySelector('.leg-star');if(starLeg){starLeg.addEventListener('click',function(){if(active==='star'){clearFilter();return;}active='star';legends.forEach(function(l){l.classList.remove('active');l.style.opacity='.5';});starLeg.classList.add('active');starLeg.style.opacity='1';var stars=loadStars();items.forEach(function(i){i.style.display=stars.indexOf(i.getAttribute('data-url'))>=0?'':'none';});days.forEach(function(d){var vis=0;d.querySelectorAll('.item').forEach(function(i){if(i.style.display!=='none')vis++;});d.style.display=vis>0?'':'none';});msg.style.display='';label.textContent='已筛选: ⭐ 我的收藏 ('+stars.length+'条)';});}})();
-
-// ── Close sidebar on mobile when clicking a date ──
-(function(){
-document.querySelectorAll('#sidebar a[href^="#day-"]').forEach(function(l){
-l.addEventListener('click',function(){
-if(window.innerWidth<=860)document.getElementById('sidebar').classList.remove('open');
-});
-});
-})();
 })();
 </script>
 <div class="footer">AI Radar · detective · 1474 articles · 44+ sources · 17 picks · 本地归档: ai_radar_archive.json</div>
